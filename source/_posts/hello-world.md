@@ -1,7 +1,7 @@
 ---
 title: 与君初相识 犹如故人归
 #top_image: /assets/1.jpg
-comments: false
+comments: true
 #excerpt: 文章摘要 
 top: true
 # 标签

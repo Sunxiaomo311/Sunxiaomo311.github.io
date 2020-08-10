@@ -2,7 +2,7 @@
 title: {{ title }}
 date: {{ date }}
 #top_image: /assets/1.jpg
-comments: false
+comments: true
 excerpt: 文章摘要 
 #top: true
 # 标签
