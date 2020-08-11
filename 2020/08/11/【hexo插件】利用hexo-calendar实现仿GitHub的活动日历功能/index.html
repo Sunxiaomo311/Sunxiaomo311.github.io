@@ -1,0 +1,483 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/assets/icons/zhongyao-16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/zhongyao-32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="利用hexo-calendar实现仿GitHub的活动日历功能,并进行个性化改动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【hexo插件】利用hexo-calendar实现仿GitHub的活动日历功能">
+<meta property="og:url" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="扶桑界">
+<meta property="og:description" content="利用hexo-calendar实现仿GitHub的活动日历功能,并进行个性化改动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/7.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/10.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/3.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/8.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/4.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/6.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/1.png">
+<meta property="og:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/2.png">
+<meta property="article:published_time" content="2020-08-11T15:25:27.000Z">
+<meta property="article:modified_time" content="2020-08-11T16:37:47.735Z">
+<meta property="article:author" content="Sun xiao mo">
+<meta property="article:tag" content="hexo插件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/7.png"><title>【hexo插件】利用hexo-calendar实现仿GitHub的活动日历功能 | 扶桑界</title><link ref="canonical" href="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="stylesheet" type="text/css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: {"avoidBanner":false},
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.0.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-street-view"></i></span><span class="header-nav-menu-item__text">生活</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/游戏/"><span class="header-nav-submenu-item__icon"><i class="fa fa-gamepad"></i></span><span class="header-nav-submenu-item__text">游戏</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/烹饪/"><span class="header-nav-submenu-item__icon"><i class="fa fa-coffee"></i></span><span class="header-nav-submenu-item__text">烹饪</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/中医学/"><span class="header-nav-submenu-item__icon"><i class="fa fa-flask"></i></span><span class="header-nav-submenu-item__text">中医学</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-code"></i></span><span class="header-nav-menu-item__text">编程</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/前端/"><span class="header-nav-submenu-item__icon"><i class="fa fa-desktop"></i></span><span class="header-nav-submenu-item__text">前端</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/服务端/"><span class="header-nav-submenu-item__icon"><i class="fa fa-server"></i></span><span class="header-nav-submenu-item__text">服务端</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/人工智能/"><span class="header-nav-submenu-item__icon"><i class="fa fa-heartbeat"></i></span><span class="header-nav-submenu-item__text">AI</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-camera-retro"></i></span><span class="header-nav-menu-item__text">摄影</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="javascript:window.open('https://sunxiaomo311.lofter.com/');"><span class="header-nav-submenu-item__icon"><i class="fa fa-file-image"></i></span><span class="header-nav-submenu-item__text">相册</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/摄影/胶片/"><span class="header-nav-submenu-item__icon"><i class="fa fa-film"></i></span><span class="header-nav-submenu-item__text">胶片</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">扶桑界</div><div class="header-banner-info__subtitle">『 一个自娱自乐的小站 』</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【hexo插件】利用hexo-calendar实现仿GitHub的活动日历功能</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-12</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/" data-flag-title="【hexo插件】利用hexo-calendar实现仿GitHub的活动日历功能"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="7.png" >
+      </p>
+<blockquote>
+<p>在个人网站首页添加类似github中的活动日历功能，实现步骤如下:</p>
+</blockquote>
+<br/>
+
+
+        <h3 id="1-在博客根目录引入hexo-calendar插件"   >
+          <a href="#1-在博客根目录引入hexo-calendar插件" class="heading-link"><i class="fas fa-link"></i></a>1. 在博客根目录引入hexo-calendar插件</h3>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-calendar -S</span><br></pre></td></tr></table></div></figure>
+
+<p><em>注意：引入前请注意插件作者给出的前提条件：</em><br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="10.png" >
+      </p>
+<br/>
+
+
+        <h3 id="2-在首页文章md文件中添加如下标签代码："   >
+          <a href="#2-在首页文章md文件中添加如下标签代码：" class="heading-link"><i class="fas fa-link"></i></a>2. 在首页文章md文件中添加如下标签代码：</h3>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% calendar %&#125;</span><br><span class="line">&#123;&quot;monthLang&quot;: &quot;cn&quot;, &quot;dayLang&quot;: &quot;cn&quot;, &quot;title&quot;: &quot;活动日历&quot;&#125;</span><br><span class="line">&#123;% endcalendar %&#125;</span><br></pre></td></tr></table></div></figure>
+<br/>
+
+
+        <h3 id="3-启动hexo服务，在本地查看效果"   >
+          <a href="#3-启动hexo服务，在本地查看效果" class="heading-link"><i class="fas fa-link"></i></a>3. 启动hexo服务，在本地查看效果</h3>
+      <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo s</span><br></pre></td></tr></table></div></figure>
+<p>访问网页后，发现活动日历已经能正常显示了</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="3.png" >
+      <br>但以强迫症的眼光看，这个显示效果有点不尽人意。</p>
+<ol>
+<li>只显示了十个月的数据。这个看了作者给出的插件文档，默认是显示40周的数据，需要更改标签中的weeks属性。</li>
+<li>有活跃度的日期单元格颜色与主题不搭配，希望改成自定的颜色。</li>
+</ol>
+<p>所以接着修改细节问题：</p>
+<br/>
+
+
+        <h3 id="4-更改标签中的属性值"   >
+          <a href="#4-更改标签中的属性值" class="heading-link"><i class="fas fa-link"></i></a>4. 更改标签中的属性值</h3>
+      <p>根据文档提示：</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="8.png" >
+      </p>
+<p>修改标签weeks属性为一年52周（注意：严格遵守json语法格式）：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;monthLang&quot;: &quot;cn&quot;, &quot;dayLang&quot;: &quot;cn&quot;, &quot;title&quot;: &quot;活动日历&quot;，&quot;weeks&quot;:52&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>修改完成后又发现一个问题，增加了两个月的单元格后，插件大小显示的有问题，还需要更改宽度。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="4.png" >
+      </p>
+<p>宽度使用width属性更改。实际上宽度修改到足够包裹插件单元格后，又可能会被外层div遮挡。所以最后决定通过用更改每个单元格大小的方式来使插件总体积缩小，完整显示一年的活跃度：</p>
+<ol>
+<li>打开博客根目录下的node_modules/hexo-calender/index.js文件。</li>
+<li>找到  <code>cellSize: [13, 13]</code> 一行,更改为<code>cellSize: [11, 11]</code>。<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="6.png" >
+      </li>
+<li>更改标签代码宽高属性。<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;width&quot;:&quot;640&quot;, &quot;height&quot;:&quot;140&quot;, &quot;weeks&quot;:52, &quot;monthLang&quot;: &quot;cn&quot;, &quot;dayLang&quot;: &quot;cn&quot;, &quot;title&quot;: &quot;活动日历&quot;&#125;</span><br></pre></td></tr></table></div></figure>
+
+</li>
+</ol>
+<br/>
+
+
+        <h3 id="5-更改活动单元格颜色"   >
+          <a href="#5-更改活动单元格颜色" class="heading-link"><i class="fas fa-link"></i></a>5. 更改活动单元格颜色</h3>
+      <p>同样也是打开博客根目录下的node_modules/hexo-calender/index.js文件，更改<code>color: [&quot;#ebedf0&quot;, &quot;#c6e48b&quot;, &quot;#7bc96f&quot;, &quot;#239a3b&quot;, &quot;#196127&quot;]</code>一行中的后四个颜色值。</p>
+<p>我的网站主题色是蓝色系，所以用f12打开网页开发者工具，用取色器获取背景图片中不同层次的蓝色。<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="1.png" >
+      </p>
+<p>全部修改完成后，刷新重启服务，显示效果如下：<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="2.png" >
+      </p>
+<p><strong>完美 😂</strong></p>
+<br/>
+
+
+        <h3 id="6-上传部署在GitHub的博客网站"   >
+          <a href="#6-上传部署在GitHub的博客网站" class="heading-link"><i class="fas fa-link"></i></a>6. 上传部署在GitHub的博客网站</h3>
+      <p>有两点需要注意的，作者已经给出提示了：</p>
+<blockquote>
+<p>注意：此插件会和hexo g命令冲突，请使用hexo ge或hexo generate替代hexo g命令！</p>
+</blockquote>
+<p>以及</p>
+<blockquote>
+<p>如果你使用了Travis CI, Github Action之类的自动部署，那么你需要在推送源码之前使用hexo gc -w=40命令生成一个calendar.json文件。-w=40代表显示 40 周之前至今的活动记录。</p>
+</blockquote>
+<p>我改动了weeks的值为52，所以最后推送更新的指令是：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo gc -w&#x3D;52</span><br><span class="line"></span><br><span class="line">hexo generate -d</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://fusangjie.club">Sun xiao mo</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/">http://fusangjie.club/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://fusangjie.club/tags/hexo%E6%8F%92%E4%BB%B6/">hexo插件</a></span></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/assets/zhifubao.jpeg"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/assets/weixinzhifu.jpeg"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/07/%E5%A5%87%E5%BC%82%E4%BA%BA%E7%94%9F%E6%B8%B8%E6%88%8F%E6%88%AA%E5%9B%BE/"><span class="paginator-prev__text">奇异人生游戏截图</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9C%A8%E5%8D%9A%E5%AE%A2%E6%A0%B9%E7%9B%AE%E5%BD%95%E5%BC%95%E5%85%A5hexo-calendar%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">
+          1. 在博客根目录引入hexo-calendar插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%A8%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0md%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%A6%82%E4%B8%8B%E6%A0%87%E7%AD%BE%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">
+          2. 在首页文章md文件中添加如下标签代码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%AF%E5%8A%A8hexo%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%9F%A5%E7%9C%8B%E6%95%88%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">
+          3. 启动hexo服务，在本地查看效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9B%B4%E6%94%B9%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="toc-number">4.</span> <span class="toc-text">
+          4. 更改标签中的属性值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9B%B4%E6%94%B9%E6%B4%BB%E5%8A%A8%E5%8D%95%E5%85%83%E6%A0%BC%E9%A2%9C%E8%89%B2"><span class="toc-number">5.</span> <span class="toc-text">
+          5. 更改活动单元格颜色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%8A%E4%BC%A0%E9%83%A8%E7%BD%B2%E5%9C%A8GitHub%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99"><span class="toc-number">6.</span> <span class="toc-text">
+          6. 上传部署在GitHub的博客网站</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">一年四季，二书三味</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Sunxiaomo311/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1601062008&amp;site=qq&amp;menu=yes/" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="http://music.163.com/m/user/home?id=444912539" target="_blank" rel="noopener" data-popover="网易云" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fa fa-headphones"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-email"><a class="sidebar-ov-feed-email__link" href="https://mailchi.mp/570dd652af9f/dingyue" target="_blank" rel="noopener"><span class="sidebar-ov-feed-email__icon"><i class="fas fa-envelope"></i></span><span>Email 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">10</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">10</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fab fa-pagelines"></i></span><span>Sun xiao mo</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-dove"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+  var pjax = new Pjax({"selectors":["head title","#main",".pjax-reload"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
+  // 加载进度条的计时器
+  var loadingTimer = null;
+
+  // 重置页面 Y 方向上的滚动偏移量
+  document.addEventListener('pjax:send', function () {
+    $('.header-nav-menu').removeClass('show');
+    if (CONFIG.pjax && CONFIG.pjax.avoidBanner) {
+      $('html').velocity('scroll', {
+        duration: 500,
+        offset: $('#header').height(),
+        easing: 'easeInOutCubic'
+      });
+    }
+
+    var loadingBarWidth = 20;
+    var MAX_LOADING_WIDTH = 95;
+
+    $('.loading-bar').addClass('loading');
+    $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    clearInterval(loadingTimer);
+    loadingTimer = setInterval(function () {
+      loadingBarWidth += 3;
+      if (loadingBarWidth > MAX_LOADING_WIDTH) {
+        loadingBarWidth = MAX_LOADING_WIDTH;
+      }
+      $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    }, 500);
+  }, false);
+
+  window.addEventListener('pjax:complete', function () {
+    clearInterval(loadingTimer);
+    $('.loading-bar__progress').css('width', '100%');
+    $('.loading-bar').removeClass('loading');
+    setTimeout(function () {
+      $('.loading-bar__progress').css('width', '0');
+    }, 400);
+    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
+      $(this).remove();
+    });
+    $('script[data-pjax], #pjax-reload script').each(function () {
+      $(this).parent().append($(this).remove());
+    });
+
+    if (Stun.utils.pjaxReloadBoot) {
+      Stun.utils.pjaxReloadBoot();
+    }
+    if (Stun.utils.pjaxReloadScroll) {
+      Stun.utils.pjaxReloadScroll();
+    }
+    if (Stun.utils.pjaxReloadSidebar) {
+      Stun.utils.pjaxReloadSidebar();
+    }
+    if (false) {
+      if (Stun.utils.pjaxReloadHeader) {
+        Stun.utils.pjaxReloadHeader();
+      }
+      if (Stun.utils.pjaxReloadScrollIcon) {
+        Stun.utils.pjaxReloadScrollIcon();
+      }
+      if (Stun.utils.pjaxReloadLocalSearch) {
+        Stun.utils.pjaxReloadLocalSearch();
+      }
+    }
+  }, false);
+}, false);</script><div id="pjax-reload"><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script data-pjax="">function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Gi8346rtoKPRm0KmTkmzAqXf-gzGzoHsz',
+    appKey: 'RukRcUaMwpWS5G9bUAsjybv6',
+    notify: true,
+    verify: true,
+    placeholder: '评论留言',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (true) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.json"></script></body></html>
