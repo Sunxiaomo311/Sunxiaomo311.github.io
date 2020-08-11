@@ -119,4 +119,4 @@ backup:
   theme: stun 4.0
   message: Back up my https:fusangjie.club blog
   repository:
-    github: git@github.com:Sunxiaomo311/Sunxiaomo311.github.io.git,backup
+    origin: git@github.com:Sunxiaomo311/Sunxiaomo311.github.io.git,backup
