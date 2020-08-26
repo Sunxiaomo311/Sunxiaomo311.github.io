@@ -1,0 +1,477 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/assets/icons/zhongyao-16.png?v=2.1.1" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/zhongyao-32.png?v=2.1.1" type="image/png" sizes="32x32"><meta name="description" content="《on Java8》（Thinking in Java第六版）阅读笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Java编程思想】阅读笔记(1)--新的认知与回顾OOP思想">
+<meta property="og:url" content="http://fusangjie.club/2020/08/24/%E3%80%90Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%91%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-1-%E6%96%B0%E7%9A%84%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%9B%9E%E9%A1%BEOOP%E6%80%9D%E6%83%B3/index.html">
+<meta property="og:site_name" content="扶桑界">
+<meta property="og:description" content="《on Java8》（Thinking in Java第六版）阅读笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-24T14:33:37.000Z">
+<meta property="article:modified_time" content="2020-08-26T15:01:29.616Z">
+<meta property="article:author" content="Sun xiao mo">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary"><title>【Java编程思想】阅读笔记(1)--新的认知与回顾OOP思想 | 扶桑界</title><link ref="canonical" href="http://fusangjie.club/2020/08/24/%E3%80%90Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%91%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-1-%E6%96%B0%E7%9A%84%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%9B%9E%E9%A1%BEOOP%E6%80%9D%E6%83%B3/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><link rel="stylesheet" type="text/css"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: true,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: {"avoidBanner":false},
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.0.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-street-view"></i></span><span class="header-nav-menu-item__text">生活</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/游戏/"><span class="header-nav-submenu-item__icon"><i class="fa fa-gamepad"></i></span><span class="header-nav-submenu-item__text">游戏</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/烹饪/"><span class="header-nav-submenu-item__icon"><i class="fa fa-coffee"></i></span><span class="header-nav-submenu-item__text">烹饪</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/生活/中医学/"><span class="header-nav-submenu-item__icon"><i class="fa fa-flask"></i></span><span class="header-nav-submenu-item__text">中医学</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-code"></i></span><span class="header-nav-menu-item__text">编程</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/前端/"><span class="header-nav-submenu-item__icon"><i class="fa fa-desktop"></i></span><span class="header-nav-submenu-item__text">前端</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/服务端/"><span class="header-nav-submenu-item__icon"><i class="fa fa-server"></i></span><span class="header-nav-submenu-item__text">服务端</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程/人工智能/"><span class="header-nav-submenu-item__icon"><i class="fa fa-heartbeat"></i></span><span class="header-nav-submenu-item__text">AI</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-camera-retro"></i></span><span class="header-nav-menu-item__text">摄影</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="javascript:window.open('https://sunxiaomo311.lofter.com/');"><span class="header-nav-submenu-item__icon"><i class="fa fa-file-image"></i></span><span class="header-nav-submenu-item__text">相册</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/摄影/胶片/"><span class="header-nav-submenu-item__icon"><i class="fa fa-film"></i></span><span class="header-nav-submenu-item__text">胶片</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">扶桑界</div><div class="header-banner-info__subtitle">『 一个自娱自乐的小站 』</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【Java编程思想】阅读笔记(1)--新的认知与回顾OOP思想</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-24</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-26</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">17分</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/08/24/%E3%80%90Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%91%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-1-%E6%96%B0%E7%9A%84%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%9B%9E%E9%A1%BEOOP%E6%80%9D%E6%83%B3/" data-flag-title="【Java编程思想】阅读笔记(1)--新的认知与回顾OOP思想"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p><strong><em>前言：</em></strong><br><em>&nbsp;&nbsp;&nbsp;&nbsp;从用Java书写第一个Hello World程序到现在，已经过去两年半了。在这两年半的时间里，我从最开始系统地了解Java编程，用自己的思维方式套用并理解其中需要消化的锚点知识；到盲目学用其他语言与新技术，用自身思维固化后形成的坚硬外壳去鲁莽撞破一道道技能关卡；最后走入职场，在不断重复的、低级的cv工作中让这层壳越裹越厚，逐渐摸不清方向。<br>&nbsp;&nbsp;&nbsp;&nbsp;夜里坐在窗边的办公桌上，放松下来的大脑逐渐回顾过往。才发现在编程技术的道路上，自己追求的过于浮夸了。朝不同方向不断出发又不断折回，到最后还是停留在了原地。<br>&nbsp;&nbsp;&nbsp;&nbsp;好好梳理了一下方向，最终决定折回起点，重新系统化钻研Java这门技术。不同的是，现在的我有了弯路上行进的宝贵经验，以及万丈高楼平地起的坚定决心。</em></p>
+<hr>
+<br/>
+
+
+        <h1 id="第一章-对象的概念"   >
+          <a href="#第一章-对象的概念" class="heading-link"><i class="fas fa-link"></i></a>第一章  对象的概念</h1>
+      
+        <h2 id="启"   >
+          <a href="#启" class="heading-link"><i class="fas fa-link"></i></a>启</h2>
+      <blockquote>
+<p>“我们没有意识到惯用语言的结构有多大的力量。可以毫不夸张地说，它通过语义反应机制奴役我们。语言表现出来并在无意识中给我们留下深刻印象的结构会自动投射到我们周围的世界。” – Alfred Korzybski (1930)</p>
+</blockquote>
+<p>作者第一章开头引用的话，毫不夸张。正如语言的差异，造就了不同地区人群文化与性格上的差异。英文语法严谨，欧美人考虑问题就偏线性化，在意因果关系；而汉语的语法相对松散，没有特别固定的口语说法，才造就了国人圆融的处世原则。</p>
+<p>所以，不同的编程语言，同样也会对使用者的思维方式乃至最终编写出的程序产生影响。编程语言就是创建应用程序的思想结构。</p>
+<p><strong>Object-Oriented Programming，即OOP，面向对象编程。是一种编程思维方式和编码架构。</strong></p>
+
+        <h2 id="抽象"   >
+          <a href="#抽象" class="heading-link"><i class="fas fa-link"></i></a>抽象</h2>
+      <p>程序员需要在机器模型（“解决方式空间”）和实际解决的问题模型（“问题空间”）之间建立起一种关联。</p>
+<p>汇编语言是对底层机器的轻微抽象。接着出现的“命令式”语言（如 FORTRAN，BASIC 和 C）是对汇编语言的抽象。这些偏底层抽象的语言要求我们着重考虑计算机的结构，而非问题本身的结构。</p>
+<p>面向对象的程序设计在此基础上跨出了一大步，程序员可利用一些工具表达“问题空间”内的元素。将问题空间中的元素以及它们在解决方案空间的表示称作“对象”（Object）。当然，还有一些在问题空间没有对应的对象体。通过添加新的对象类型，程序可进行灵活的调整，以便与特定的问题配合。所以当你在阅读描述解决方案的代码时，也是在阅读问题的表述。</p>
+<p>总之，OOP 允许我们<strong>根据问题来描述问题（着重于对解决问题的描述建模）</strong>，而不是根据运行解决方案的计算机。</p>
+<p>Smalltalk 作为第一个成功的面向对象并影响了 Java 的程序设计语言 ，其五大基本特征如下。（通过这些特征，我们可理解“纯粹”的面向对象程序设计方法是什么样的）：</p>
+<ol>
+<li><strong>万物皆对象</strong>（将对象想象成一种特殊的变量。它存储数据，但可以在你对其“发出请求”时执行本身的操作）</li>
+<li><strong>程序是一组对象，通过消息传递来告知彼此该做什么</strong></li>
+<li><strong>每个对象都有自己的存储空间，可容纳其他对象</strong>（通过封装现有对象，可制作出新型对象）</li>
+<li><strong>每个对象都有一种类型</strong>（一个类最重要的特征就是“能将什么消息发给它？”）</li>
+<li><strong>同一类所有对象都能接收相同的消息</strong>（这一特性称为对象的“可替换性”，是OOP最重要的概念之一）</li>
+</ol>
+
+        <h2 id="接口"   >
+          <a href="#接口" class="heading-link"><i class="fas fa-link"></i></a>接口</h2>
+      <p>在面向对象的程序设计中，尽管我们真正要做的是新建各种各样的数据“类型”。创建好一个类后，可根据情况生成许多对象。随后，可将那些对象作为要解决问题中存在的元素进行处理。如何在“问题空间”（问题实际存在的地方）的元素与“方案空间”（对实际问题进行建模的地方，如计算机）的元素之间建立理想的“一对一”的映射关系，是主要的问题。</p>
+<p><strong>我们向对象发出的请求是通过它的“接口”（Interface）定义的，对象的“类型”或“类”则规定了它的接口形式。</strong>“类型”与“接口”的对应关系是面向对象程序设计的基础。</p>
+
+        <h2 id="服务提供"   >
+          <a href="#服务提供" class="heading-link"><i class="fas fa-link"></i></a>服务提供</h2>
+      <p>在开发或理解程序设计时，我们可以将对象看成是“服务提供者”。你的程序本身将为用户提供服务，并且它能通过调用其他对象提供的服务来实现这一点。我们的最终目标是开发或调用工具库中已有的一些对象，提供理想的服务来解决问题。开发前我们可以将实际问题一一分解，抽象成一组服务。</p>
+<p><strong>软件设计的基本原则是高内聚：每个组件的内部作用明确，功能紧密相关。每个对象都提供了一组紧密的服务。</strong></p>
+<p>在良好的面向对象设计中，每个对象功能单一且高效。这样的程序设计可以提高我们代码的复用性，同时也方便别人阅读和理解我们的代码。</p>
+
+        <h2 id="封装"   >
+          <a href="#封装" class="heading-link"><i class="fas fa-link"></i></a>封装</h2>
+      <p>编程的侧重领域划可以分为研发领域和应用领域。应用程序员调用研发程序员构建的基础工具类来做快速开发，研发程序员开发一个工具类，该工具类仅向应用程序员公开必要的内容，并隐藏内部实现的细节。</p>
+<p>访问控制可以使类库的创建者（研发程序员）在不影响后者使用的情况下完善更新工具库。例如，我们开发了一个功能简单的工具类，后来发现可以通过优化代码来提高执行速度。假如工具类的接口和实现部分明确分开并受到保护，那我们就可以轻松地完成改造。</p>
+<p>Java 有三个显式关键字和一个隐式默认关键字来设置类中的访问权限：</p>
+<ol>
+<li>public（公开）表示任何人都可以访问和使用该元素；</li>
+<li>private（私有）除了类本身和类内部的方法，外界无法直接访问该元素。private 是类和调用者之间的屏障。任何试图访问私有成员的行为都会报编译时错误；</li>
+<li>protected（受保护）类似于 private，区别是子类（下一节就会引入继承的概念）可以访问 protected 的成员，但不能访问 private 成员；</li>
+<li>default（默认）如果你不使用前面的三者，默认就是 default 访问权限。default 被称为包访问，因为该权限下的资源可以被同一包（库组件）中其他类的成员访问。</li>
+</ol>
+
+        <h2 id="继承"   >
+          <a href="#继承" class="heading-link"><i class="fas fa-link"></i></a>继承</h2>
+      <p>通过使用对象，类型层次结构成为了主要模型，因此你可以直接从真实世界中对系统的描述过渡到用代码对系统进行描述。</p>
+<p>代码和设计方案的复用性是面向对象程序设计的优点之一。<br>从现有类型继承创建新类型。这种新类型不仅包含现有类型的所有成员（尽管私有成员被隐藏起来并且不可访问），而且更重要的是它复制了基类的接口。也就是说，<strong>基类对象接收的所有消息也能被派生类对象接收</strong>。根据类接收的消息，我们知道类的类型。</p>
+
+        <h3 id="单继承结构"   >
+          <a href="#单继承结构" class="heading-link"><i class="fas fa-link"></i></a>单继承结构</h3>
+      <p>在 Java 中，最终基类的名字是 Object。</p>
+<p>单继承的结构使得垃圾收集器的实现更为容易。这也是 Java 在 C++ 基础上的根本改进之一。</p>
+<p>由于运行期的类型信息会存在于所有对象中，所以我们永远不会遇到判断不了对象类型的情况。这对于系统级操作尤其重要，例如异常处理。同时，这也让我们的编程具有更大的灵活性。</p>
+
+        <h2 id="多肽"   >
+          <a href="#多肽" class="heading-link"><i class="fas fa-link"></i></a>多肽</h2>
+      <p>以基类为蓝本派生新类型是扩展面向对象程序以处理新情况的，封装变化的基本方法之一。 例如，你可以通过通用的“形状”基类派生出新的“五角形”形状的子类，而不需要修改通用”形状”基类的方法。</p>
+<p>在传统意义上，编译器不能进行函数调用。由非 OOP 编译器产生的函数调用会引起所谓的<strong>早期绑定</strong>，这意味着编译器生成对特定函数名的调用，该调用会被解析为将执行的代码的<strong>绝对地址</strong>。</p>
+<p>通过继承，程序直到运行时才能确定代码的地址，因此发送消息给对象时，还需要其他一些方案。为了解决这个问题，面向对象语言使用<strong>后期绑定</strong>的概念。当向对象发送信息时，被调用的代码直到运行时才确定。编译器确保方法存在，并对参数和返回值执行类型检查，但是它不知道要执行的确切代码。</p>
+<p>把子类当成其基类来处理的过程叫做“向上转型”（upcasting）。在面向对象的编程里，经常利用这种方法来给程序解耦。</p>
+<p>发送消息给对象时，如果程序不知道接收的具体类型是什么，但最终执行是正确的，这就是对象的“多态性”（Polymorphism）。面向对象的程序设计语言是通过“动态绑定”的方式来实现对象的多态性的。为了执行后期绑定，Java 使用一个特殊的代码位来代替绝对调用。这段代码使用对象中存储的信息来计算方法主体的地址（此过程在多态性章节中有详细介绍）。因此，每个对象的行为根据特定代码位的内容而不同。</p>
+<p>在 Java 中，编译器和运行时系统会负责对所有细节的控制，动态绑定是默认行为，不需要额外的关键字来实现多态性（C++ 使用 virtual 关键字）。</p>
+
+        <h2 id="集合"   >
+          <a href="#集合" class="heading-link"><i class="fas fa-link"></i></a>集合</h2>
+      <p>创建一个新类型的对象来引用、容纳其他的对象，在 Java 中可以使用“集合”（Collection）。（也可称之为“容器”，但“集合”这个称呼更通用。）</p>
+<p>“集合”这种类型的对象可以存储任意类型、数量的其他对象。它能根据需要自动扩容，开发者不用关心过程是如何实现的。</p>
+<p>我们可以一开始使用 LinkedList 构建程序，在优化系统性能时改用 ArrayList。通过对 List 接口的抽象，我们可以很容易地将 LinkedList 改为 ArrayList。</p>
+<p>在 Java 5 泛型出来之前，集合中保存的是通用类型 Object。Java 5 版本支持了参数化类型机制，称之为“泛型”（Generic）。泛型是 Java 5 的主要特性之一。</p>
+
+        <h2 id="对象的生命周期"   >
+          <a href="#对象的生命周期" class="heading-link"><i class="fas fa-link"></i></a>对象的生命周期</h2>
+      <p>在 C++ 程序设计中，当使用完一个对象后，必须明确将其删除。 在 C++ 设计中采用的观点是效率第一，因此它将选择权交给了程序员。为了获得最大的运行时速度，程序员可以在编写程序时，通过将对象放在栈（Stack，有时称为自动变量或作用域变量）或静态存储区域（static storage area）中来确定内存占用和生存时间。</p>
+<p>Java 使用动态内存分配。每次创建对象时，使用 new 关键字构建该对象的动态实例。在堆内存（Heap）中动态地创建对象，直到程序运行我们才能确定需要创建的对象数量、生存时间和类型。Java 的内存管理是建立在垃圾收集器上的，它能自动发现对象不再被使用并释放内存。</p>
+
+        <h2 id="异常处理机制"   >
+          <a href="#异常处理机制" class="heading-link"><i class="fas fa-link"></i></a>异常处理机制</h2>
+      <p>Java 从一开始就内置了异常处理，这是 Java 语言唯一接受的错误报告方法。如果没有编写适当的异常处理代码，运行时出现错误将会收到一条编译时错误消息。</p>
+<p>异常处理机制将程序错误直接交给编程语言甚至是操作系统。“异常”（Exception）是一个从出错点“抛出”（thrown）后能被特定类型的异常处理程序捕获(catch)的一个对象。它不会干扰程序的正常运行，仅当程序出错的时候才被执行。“异常机制”提供了一种可靠地从错误状况中恢复的方法，使得我们可以编写出更健壮的程序。</p>
+
+        <h2 id="小结"   >
+          <a href="#小结" class="heading-link"><i class="fas fa-link"></i></a>小结</h2>
+      <p>设计良好的 Java 程序代码更容易被人阅读理解。由于 Java 类库的复用性，通常程序要写的代码也会少得多。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://fusangjie.club">Sun xiao mo</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://fusangjie.club/2020/08/24/%E3%80%90Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%91%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-1-%E6%96%B0%E7%9A%84%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%9B%9E%E9%A1%BEOOP%E6%80%9D%E6%83%B3/">http://fusangjie.club/2020/08/24/%E3%80%90Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E3%80%91%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-1-%E6%96%B0%E7%9A%84%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%9B%9E%E9%A1%BEOOP%E6%80%9D%E6%83%B3/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://fusangjie.club/tags/Java/">Java</a></span></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/assets/zhifubao.jpeg"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/assets/weixinzhifu.jpeg"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/11/%E3%80%90hexo%E6%8F%92%E4%BB%B6%E3%80%91%E5%88%A9%E7%94%A8hexo-calendar%E5%AE%9E%E7%8E%B0%E4%BB%BFGitHub%E7%9A%84%E6%B4%BB%E5%8A%A8%E6%97%A5%E5%8E%86%E5%8A%9F%E8%83%BD/"><span class="paginator-prev__text">【hexo插件】利用hexo-calendar实现仿GitHub的活动日历功能</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">
+          第一章  对象的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF"><span class="toc-number">1.1.</span> <span class="toc-text">
+          启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">
+          抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.</span> <span class="toc-text">
+          接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B"><span class="toc-number">1.4.</span> <span class="toc-text">
+          服务提供</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.5.</span> <span class="toc-text">
+          封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">1.6.</span> <span class="toc-text">
+          继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%BB%A7%E6%89%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.6.1.</span> <span class="toc-text">
+          单继承结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%82%BD"><span class="toc-number">1.7.</span> <span class="toc-text">
+          多肽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">1.8.</span> <span class="toc-text">
+          集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.9.</span> <span class="toc-text">
+          对象的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">1.10.</span> <span class="toc-text">
+          异常处理机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.11.</span> <span class="toc-text">
+          小结</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/touxiang.png" alt="avatar"></div><p class="sidebar-ov-author__text">一年四季，二书三味</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Sunxiaomo311/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1601062008&amp;site=qq&amp;menu=yes/" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="http://music.163.com/m/user/home?id=444912539" target="_blank" rel="noopener" data-popover="网易云" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fa fa-headphones"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-email"><a class="sidebar-ov-feed-email__link" href="https://mailchi.mp/570dd652af9f/dingyue" target="_blank" rel="noopener"><span class="sidebar-ov-feed-email__icon"><i class="fas fa-envelope"></i></span><span>Email 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">11</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">10</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fab fa-pagelines"></i></span><span>Sun xiao mo</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-dove"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/pjax@latest/pjax.min.js"></script><script>window.addEventListener('DOMContentLoaded', function () {
+  var pjax = new Pjax({"selectors":["head title","#main",".pjax-reload"],"history":true,"scrollTo":false,"scrollRestoration":false,"cacheBust":false,"debug":false,"currentUrlFullReload":false,"timeout":0});
+  // 加载进度条的计时器
+  var loadingTimer = null;
+
+  // 重置页面 Y 方向上的滚动偏移量
+  document.addEventListener('pjax:send', function () {
+    $('.header-nav-menu').removeClass('show');
+    if (CONFIG.pjax && CONFIG.pjax.avoidBanner) {
+      $('html').velocity('scroll', {
+        duration: 500,
+        offset: $('#header').height(),
+        easing: 'easeInOutCubic'
+      });
+    }
+
+    var loadingBarWidth = 20;
+    var MAX_LOADING_WIDTH = 95;
+
+    $('.loading-bar').addClass('loading');
+    $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    clearInterval(loadingTimer);
+    loadingTimer = setInterval(function () {
+      loadingBarWidth += 3;
+      if (loadingBarWidth > MAX_LOADING_WIDTH) {
+        loadingBarWidth = MAX_LOADING_WIDTH;
+      }
+      $('.loading-bar__progress').css('width', loadingBarWidth + '%');
+    }, 500);
+  }, false);
+
+  window.addEventListener('pjax:complete', function () {
+    clearInterval(loadingTimer);
+    $('.loading-bar__progress').css('width', '100%');
+    $('.loading-bar').removeClass('loading');
+    setTimeout(function () {
+      $('.loading-bar__progress').css('width', '0');
+    }, 400);
+    $('link[rel=prefetch], script[data-pjax-rm]').each(function () {
+      $(this).remove();
+    });
+    $('script[data-pjax], #pjax-reload script').each(function () {
+      $(this).parent().append($(this).remove());
+    });
+
+    if (Stun.utils.pjaxReloadBoot) {
+      Stun.utils.pjaxReloadBoot();
+    }
+    if (Stun.utils.pjaxReloadScroll) {
+      Stun.utils.pjaxReloadScroll();
+    }
+    if (Stun.utils.pjaxReloadSidebar) {
+      Stun.utils.pjaxReloadSidebar();
+    }
+    if (false) {
+      if (Stun.utils.pjaxReloadHeader) {
+        Stun.utils.pjaxReloadHeader();
+      }
+      if (Stun.utils.pjaxReloadScrollIcon) {
+        Stun.utils.pjaxReloadScrollIcon();
+      }
+      if (Stun.utils.pjaxReloadLocalSearch) {
+        Stun.utils.pjaxReloadLocalSearch();
+      }
+    }
+  }, false);
+}, false);</script><div id="pjax-reload"><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script data-pjax="">function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Gi8346rtoKPRm0KmTkmzAqXf-gzGzoHsz',
+    appKey: 'RukRcUaMwpWS5G9bUAsjybv6',
+    notify: true,
+    verify: true,
+    placeholder: '评论留言',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (true) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.1.1"></script><script src="/js/stun-boot.js?v=2.1.1"></script><script src="/js/scroll.js?v=2.1.1"></script><script src="/js/header.js?v=2.1.1"></script><script src="/js/sidebar.js?v=2.1.1"></script><script type="application/json" src="/search.json"></script></body></html>
