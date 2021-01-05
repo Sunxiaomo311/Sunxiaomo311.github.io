@@ -3,10 +3,12 @@ title: 【Java】1.8版本前后的区别
 comments: true
 excerpt: Java1.8版本前后的区别
 date: 2020-12-25 12:39:36
+tag:
   - Java
 categories:
   - 编程
   - 服务端
+
 ---
 
 # java 9 中引入了模块的概念，默认情况下，Java SE中将不再包含java EE 的Jar包。 
